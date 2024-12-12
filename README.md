@@ -11,6 +11,10 @@ The Joomla Image Optimizer Plugin is a simple tool designed to optimize images w
 - **Thumbnail Generation**: Create intro images with specified dimensions. You need to select only one image in the article admin (the full image), intro image will be generated and selected automatically.
 - **Resize Modes**: Choose between 'fit' and 'crop' resize modes.
 
+## Requirements
+- Joomla 5.x
+- GdImage library
+
 ## Installation
 
 1. Download this repository.
