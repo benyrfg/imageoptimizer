@@ -8,7 +8,7 @@ The Joomla Image Optimizer Plugin is a simple tool designed to optimize images w
 
 - **Image Optimization**: Automatically resize and compress images to reduce file size and improve page load times.
 - **Supports Multiple Formats**: Compatible with JPEG, PNG, GIF, and WEBP image formats.
-- **Thumbnail Generation**: Create intro images with specified dimensions. You need to select only one image in the article admin (the full iamge), intro image will be generated and selected automatically.
+- **Thumbnail Generation**: Create intro images with specified dimensions. You need to select only one image in the article admin (the full image), intro image will be generated and selected automatically.
 - **Resize Modes**: Choose between 'fit' and 'crop' resize modes.
 
 ## Installation
