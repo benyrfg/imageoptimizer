@@ -48,8 +48,16 @@ class ImageOptimizer extends CMSPlugin implements SubscriberInterface {
             $thumbnailPath = $this->createThumbnail($filePath, $imageType, $quality, $maxIntroWidth, $maxIntroHeight, $resizeModeIntro);
             if ($thumbnailPath) {
                 $images['image_intro'] = $this->getRelativePath($thumbnailPath);
-                $item->images = json_encode($images);
             }
+
+            // if ALT is empty add article title
+            if(empty($images['image_intro_alt'])){
+                $images['image_intro_alt'] = $item->title;
+            }
+            if(empty($images['image_fulltext_alt'])){
+                $images['image_fulltext_alt'] = $item->title;
+            }
+            $item->images = json_encode($images);
             
         }
     }
