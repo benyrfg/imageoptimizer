@@ -17,6 +17,11 @@ class ImageOptimizer extends CMSPlugin implements SubscriberInterface {
     public function optimizeImage(Event $event) {
         [$context, $item] = array_values($event->getArguments());
 
+        if (!in_array($context, ['com_content.article']))
+        {
+            return;
+        }
+
         if (isset($item->images)) {
             $images = json_decode($item->images, true);
             $image = $images['image_fulltext'] ?? null;
