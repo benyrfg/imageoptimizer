@@ -52,7 +52,14 @@ class ImageOptimizer extends CMSPlugin implements SubscriberInterface {
             $maxIntroHeight = $params->get('max_intro_height', 350);
             $thumbnailPath = $this->createThumbnail($filePath, $imageType, $quality, $maxIntroWidth, $maxIntroHeight, $resizeModeIntro);
             if ($thumbnailPath) {
-                $images['image_intro'] = $this->getRelativePath($thumbnailPath);
+                $pathParts = pathinfo($thumbnailPath);    
+                // Construct thumbnailPath 
+                $thumbnailPathFinal = $pathParts['dirname'] . '/' . rawurlencode($pathParts['basename']) .
+                                 '#joomlaImage://local-' . $pathParts['dirname'] . '/' .
+                                 $pathParts['basename'] . '?width=' . $maxIntroWidth .
+                                 '&height=' . $maxIntroHeight;
+
+                $images['image_intro'] = $this->getRelativePath($thumbnailPathFinal);
             }
 
             // if ALT is empty add article title
@@ -70,13 +77,12 @@ class ImageOptimizer extends CMSPlugin implements SubscriberInterface {
     private function getFilePath($joomlaImagePath) {
         $parts = explode('#', $joomlaImagePath);
         if (count($parts) > 1) {
-            $joomlaImagePath = $parts[1];
+            return  JPATH_ROOT . '/' . rawurldecode($parts[0]);         
+        } else{
+            return  JPATH_ROOT . '/' . rawurldecode($joomlaImagePath);
         }
-        if (preg_match('/^joomlaImage:\/\/local-images\/(.+?)\?/', $joomlaImagePath, $matches)) {
-            $relativePath = $matches[1];
-            return JPATH_ROOT . '/images/' . $relativePath;
-        }
-        return null;
+        return false;
+        
     }
 
     private function resizeAndCompressImage($filePath, $maxWidth, $maxHeight, $quality, $resizeMode) {
